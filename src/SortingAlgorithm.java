@@ -69,18 +69,18 @@ public class SortingAlgorithm {
     }
 
 
-    static public int QuickSortInnerPartition(int[] arr, int lo, int hi){
-        int startCursor = lo; // 1 get added in the loop before it is accessed
-        int endCursor = hi+1; // 1 get subtracted in the loop before it is accessed
+    static public int QuickSortInnerPartition(int[] arr, int partitionStartLocation, int partitionEndLocation){
+        int startCursor = partitionStartLocation; // 1 get added in the loop before it is accessed
+        int endCursor = partitionEndLocation+1; // 1 get subtracted in the loop before it is accessed
 
         while (true) {
-            while (arr[++startCursor]<arr[lo]){
-                if (startCursor == hi) {
+            while (arr[++startCursor]<arr[partitionStartLocation]){
+                if (startCursor == partitionEndLocation) {
                     break;
                 }
             }
-            while (arr[lo] < arr[--endCursor]) {
-                if (endCursor == lo){
+            while (arr[partitionStartLocation] < arr[--endCursor]) {
+                if (endCursor == partitionStartLocation){
                     break;
                 }
             }
@@ -90,18 +90,18 @@ public class SortingAlgorithm {
             }
             Helpers.swap(arr, startCursor, endCursor);
         }
-        Helpers.swap(arr, lo, endCursor);
+        Helpers.swap(arr, partitionStartLocation, endCursor);
 
         return endCursor;
     }
 
-    static public void QuickSortInner(int[] arr, int lo, int hi){
-        if(lo >= hi){
+    static public void QuickSortInner(int[] arr, int partitionStartLocation, int partitionEndLocation){
+        if(partitionStartLocation >= partitionEndLocation){
             return;
         }
-        int pivitpoint = QuickSortInnerPartition(arr, lo, hi);
-        QuickSortInner(arr, lo, pivitpoint-1);
-        QuickSortInner(arr, pivitpoint+1, hi);
+        int pivitpoint = QuickSortInnerPartition(arr, partitionStartLocation, partitionEndLocation);
+        QuickSortInner(arr, partitionStartLocation, pivitpoint-1);
+        QuickSortInner(arr, pivitpoint+1, partitionEndLocation);
     }
 
     static public int[] QuickSort(int[] arr) {
